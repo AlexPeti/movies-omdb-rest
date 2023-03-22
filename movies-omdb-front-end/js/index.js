@@ -4,6 +4,7 @@ const movieDetails = document.getElementById('movie-details');
 
 button.addEventListener('click', () => {
   const title = input.value;
+  // Added the &includePoster=true so it also displays the movie poster
   fetch(`http://localhost:8080/api/movies/title?title=${title}&includePoster=true`)
     .then(response => response.json())
     .then(data => {
