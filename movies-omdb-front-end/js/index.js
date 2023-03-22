@@ -11,11 +11,13 @@ button.addEventListener('click', () => {
       // Update the HTML with the movie details
       movieDetails.innerHTML = `
         <h2>${data.Title}</h2>
+        <button class="watchlist-button">+ watchlist</button>
         <img src="${data.Poster}" alt="${data.Title} poster">
         <p>${data.Plot}</p>
         <p>Directed by: ${data.Director}</p>
         <p>Starring: ${data.Actors}</p>
       `;
+      
     })
     .catch(error => {
       // Handle any errors that occur

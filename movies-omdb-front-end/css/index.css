@@ -1,5 +1,11 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: rgb(119, 119, 62);
 }
 
 .search-bar {
@@ -28,3 +34,13 @@
 .btn-search {
     margin-top: 10px;
 }
+
+.watchlist-button {
+    background-color: rgb(103, 186, 224);
+    color: white;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 90px;
+    border-radius: 5px;
+}
+
