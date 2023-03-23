@@ -12,7 +12,7 @@ public class JPAHelper {
 
     public static EntityManagerFactory getEntityManagerFactory() {
         if ((emf == null) || ((!emf.isOpen()))) {
-            emf = Persistence.createEntityManagerFactory("teachers22PU");
+            emf = Persistence.createEntityManagerFactory("usersPU");
         }
         return emf;
     }
