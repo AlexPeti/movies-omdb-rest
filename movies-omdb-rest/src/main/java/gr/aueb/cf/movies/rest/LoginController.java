@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 @Path("/login")
 public class LoginController {
@@ -22,7 +23,9 @@ public class LoginController {
             User authenticatedUser = userDAO.authenticate(user.getUsername(), user.getPassword());
 
             if (authenticatedUser != null) {
-                return Response.ok().entity(authenticatedUser).build();
+                // Create URI of the index.html page with welcome message as query parameter
+                UriBuilder uriBuilder = UriBuilder.fromPath("index.html").queryParam("message", "Welcome back, " + user.getUsername());
+                return Response.temporaryRedirect(uriBuilder.build()).build();
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
