@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/index")
+@Path("/login")
 public class LoginController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

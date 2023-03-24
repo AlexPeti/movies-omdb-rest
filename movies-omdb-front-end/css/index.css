@@ -5,7 +5,7 @@
 }
 
 .container {
-    background-color: rgb(119, 119, 62);
+    background-color:white;
 }
 
 .search-bar {
@@ -43,4 +43,8 @@
     width: 90px;
     border-radius: 5px;
 }
+
+.login-icon {
+    font-size: 2em;
+  }
 
