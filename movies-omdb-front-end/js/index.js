@@ -24,3 +24,17 @@ button.addEventListener('click', () => {
       console.error(error);
     });
 });
+
+// Welcome message if successfully logged in
+
+// Get query parameters from URL
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+// Get welcome message from query parameter
+const message = urlParams.get('message');
+
+// Display welcome message if exists
+if (message) {
+    document.getElementById('welcome-message').textContent = message;
+}

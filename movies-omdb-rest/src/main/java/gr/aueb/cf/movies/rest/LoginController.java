@@ -4,28 +4,35 @@ import gr.aueb.cf.movies.dao.IUserDAO;
 import gr.aueb.cf.movies.dao.UserDAOImpl;
 import gr.aueb.cf.movies.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 
 @Path("/login")
 public class LoginController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authenticateUser(User user) {
+    public Response authenticateUser(User user, @Context HttpServletRequest request) {
         try {
             IUserDAO userDAO = new UserDAOImpl();
             User authenticatedUser = userDAO.authenticate(user.getUsername(), user.getPassword());
 
             if (authenticatedUser != null) {
-                // Create URI of the index.html page with welcome message as query parameter
-                UriBuilder uriBuilder = UriBuilder.fromPath("index.html").queryParam("message", "Welcome back, " + user.getUsername());
-                return Response.temporaryRedirect(uriBuilder.build()).build();
+                // Set the session attributes
+                HttpSession session = request.getSession(true);
+                session.setAttribute("user", authenticatedUser);
+
+                // Redirect to the index page
+                String url = request.getContextPath() + "/index.html";
+                String message = "Welcome back, " + authenticatedUser.getUsername();
+                return Response.ok().entity("<script>window.location.replace('" + url + "');alert('" + message + "');</script>").build();
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
