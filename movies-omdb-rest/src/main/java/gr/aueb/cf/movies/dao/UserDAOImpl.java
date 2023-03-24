@@ -4,6 +4,8 @@ import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.util.JPAHelper;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import javax.ws.rs.ext.Provider;
@@ -63,5 +65,18 @@ public class UserDAOImpl implements IUserDAO {
 
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();
+    }
+
+    @Override
+    public User authenticate(String username, String password) {
+        EntityManager em = JPAHelper.getEntityManager();
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        try {
+            return (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }
