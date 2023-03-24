@@ -20,12 +20,6 @@ public class User {
     @Column(name = "PASSWORD", length = 50, nullable = false)
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "USERS_MOVIES",
-    joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-    inverseJoinColumns = @JoinColumn(name = "MOVIE_ID",referencedColumnName = "ID"))
-    private List<Movie> movies = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -74,38 +68,19 @@ public class User {
         return id.hashCode();
     }
 
-    protected List<Movie> getMovies() {
-        return movies;
+    @ElementCollection
+    @CollectionTable(name = "USER_MOVIES", joinColumns = @JoinColumn(name = "USER_ID"))
+    private List<Movie> movies = new ArrayList<>();
+
+    public List<Movie> getMovies() {
+        return Collections.unmodifiableList(movies);
     }
 
-    protected void setMovies(List<Movie> movies) {
-        this.movies = movies;
+    public void addMovie(Movie movie) {
+        movies.add(movie);
     }
 
-    public List<Movie> getAllMovies() {
-        return Collections.unmodifiableList(getMovies());
-    }
-
-    public void addFavoriteMovie(Movie movie) {
-        this.movies.add(movie);
-        for (User user : movie.getUsers()) {
-            if (user == this) {
-                return;
-            }
-        }
-        movie.addUser(this);
-    }
-
-    public void deleteMovie(Movie movie) {
-        boolean found = false;
-        this.movies.remove(movie);
-
-        for (User user : movie.getUsers()) {
-            if (user == this) {
-                found = true;
-                break;
-            }
-        }
-        if (found) movie.deleteUser(this);
+    public void removeMovie(Movie movie) {
+        movies.remove(movie);
     }
 }

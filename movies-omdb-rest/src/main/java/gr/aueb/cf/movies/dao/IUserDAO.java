@@ -1,6 +1,7 @@
 package gr.aueb.cf.movies.dao;
 
 import gr.aueb.cf.movies.model.User;
+import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
 
 import java.util.List;
 

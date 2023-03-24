@@ -1,9 +1,13 @@
 package gr.aueb.cf.movies.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDTO {
     private Long id;
     private String username;
     private String password;
+    private List<MovieDTO> movies = new ArrayList<>();
 
     public UserDTO() {}
 
@@ -29,5 +33,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<MovieDTO> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<MovieDTO> movies) {
+        this.movies = movies;
     }
 }
