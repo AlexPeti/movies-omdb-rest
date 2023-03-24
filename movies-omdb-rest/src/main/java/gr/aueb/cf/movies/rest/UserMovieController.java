@@ -31,8 +31,10 @@ public class UserMovieController {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            userDAO.addMovie(userId, movie);
-            return Response.status(Response.Status.CREATED).entity(movie).build();
+            Movie newMovie = new Movie();
+            newMovie.setTitle(movie.getTitle());
+            userDAO.addMovie(userId, newMovie);
+            return Response.status(Response.Status.CREATED).entity(newMovie).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
