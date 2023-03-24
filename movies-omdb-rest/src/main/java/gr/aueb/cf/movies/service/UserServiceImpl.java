@@ -7,6 +7,7 @@ import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.movies.service.util.JPAHelper;
+import jakarta.persistence.EntityManager;
 
 import javax.inject.Inject;
 import javax.ws.rs.ext.Provider;
@@ -133,15 +134,23 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User addMovie(Long id, Movie movie) {
-        User user = userDAO.getById(id);
+        EntityManager em = JPAHelper.getEntityManager();
+        User user = em.find(User.class, id);
         user.getMovies().add(movie);
-        return userDAO.update(user);
+        em.getTransaction().begin();
+        User updatedUser = em.merge(user);
+        em.getTransaction().commit();
+        return updatedUser;
     }
 
     @Override
     public User removeMovie(Long id, Movie movie) {
-        User user = userDAO.getById(id);
+        EntityManager em = JPAHelper.getEntityManager();
+        User user = em.find(User.class, id);
         user.getMovies().remove(movie);
-        return userDAO.update(user);
+        em.getTransaction().begin();
+        User updatedUser = em.merge(user);
+        em.getTransaction().commit();
+        return updatedUser;
     }
 }
