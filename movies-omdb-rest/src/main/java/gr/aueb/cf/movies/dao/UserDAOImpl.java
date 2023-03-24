@@ -1,5 +1,6 @@
 package gr.aueb.cf.movies.dao;
 
+import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.util.JPAHelper;
 import jakarta.persistence.EntityManager;
@@ -42,6 +43,22 @@ public class UserDAOImpl implements IUserDAO {
     public User getById(Long id) {
         EntityManager em = getEntityManager();
         return em.find(User.class,id);
+    }
+
+    @Override
+    public void addMovie(Long userId, Movie movie) {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class, userId);
+        user.getMovies().add(movie);
+        em.merge(user);
+    }
+
+    @Override
+    public void removeMovie(Long userId, Movie movie) {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class, userId);
+        user.getMovies().remove(movie);
+        em.merge(user);
     }
 
     private EntityManager getEntityManager() {
