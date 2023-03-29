@@ -9,7 +9,8 @@ public interface IUserDAO {
     User insert(User user);
     User update(User user);
     void delete(Long id);
-    List<User> getByUsername(String username);
+    List<User> getUsersByUsername(String username);
+    User getByUsername(String username);
     User getById(Long id);
     void addMovie(Long userId, Movie movie);
     void removeMovie(Long userId, Movie movie);

@@ -34,12 +34,22 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public List<User> getByUsername(String username) {
+    public List<User> getUsersByUsername(String username) {
         String jpql = "SELECT u FROM User u WHERE u.username LIKE :username";
         TypedQuery<User> query = getEntityManager().createQuery(jpql, User.class);
         query.setParameter("username", username + "%");
         return query.getResultList();
     }
+
+    @Override
+    public User getByUsername(String username) {
+        String jpql = "SELECT u FROM User u WHERE u.username = :username";
+        TypedQuery<User> query = getEntityManager().createQuery(jpql, User.class);
+        query.setParameter("username", username);
+        List<User> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
+    }
+
 
     @Override
     public User getById(Long id) {

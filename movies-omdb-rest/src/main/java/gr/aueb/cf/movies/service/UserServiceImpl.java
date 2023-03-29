@@ -118,12 +118,31 @@ public class UserServiceImpl implements IUserService {
         List<User> users;
         try {
             JPAHelper.beginTransaction();
-            users = userDAO.getByUsername(username);
+            users = userDAO.getUsersByUsername(username);
             if (users.size() == 0) {
                 throw new EntityNotFoundException(List.class, 0L);
             }
             JPAHelper.commitTransaction();
             return users;
+        } catch (EntityNotFoundException e) {
+            JPAHelper.rollbackTransaction();
+            throw e;
+        } finally {
+            JPAHelper.closeEntityManager();
+        }
+    }
+
+    @Override
+    public User getUserByUsername(String username) throws EntityNotFoundException {
+        User user;
+        try {
+            JPAHelper.beginTransaction();
+            user = userDAO.getByUsername(username);
+            if (user == null) {
+                throw new EntityNotFoundException(User.class, 0L);
+            }
+            JPAHelper.commitTransaction();
+            return user;
         } catch (EntityNotFoundException e) {
             JPAHelper.rollbackTransaction();
             throw e;
@@ -152,5 +171,14 @@ public class UserServiceImpl implements IUserService {
         User updatedUser = em.merge(user);
         em.getTransaction().commit();
         return updatedUser;
+    }
+
+    @Override
+    public User authenticateUser(String username, String password) throws EntityNotFoundException {
+        User user = userDAO.authenticate(username, password);
+        if (user == null) {
+            throw new EntityNotFoundException(User.class, 0L);
+        }
+        return user;
     }
 }
