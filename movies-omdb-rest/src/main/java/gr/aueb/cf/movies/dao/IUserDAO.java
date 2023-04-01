@@ -12,7 +12,9 @@ public interface IUserDAO {
     List<User> getUsersByUsername(String username);
     User getByUsername(String username);
     User getById(Long id);
-    void addMovie(Long userId, Movie movie);
-    void removeMovie(Long userId, Movie movie);
+//    void addMovie(Long userId, Movie movie);
+//    void removeMovie(Long userId, Movie movie);
+    void addMovie(String username, Movie movie);
+    void removeMovie(String username, Movie movie);
     User authenticate(String username, String password);
 }

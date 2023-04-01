@@ -1,9 +1,12 @@
+// Get the search button and input field
 const button = document.querySelector('.btn-search');
 const input = document.querySelector('.search-input');
 const movieDetails = document.getElementById('movie-details');
 
+// Add a click event listener to the search button
 button.addEventListener('click', () => {
   const title = input.value;
+
   // Added the &includePoster=true so it also displays the movie poster
   fetch(`http://localhost:8080/api/movies/title?title=${title}&includePoster=true`)
     .then(response => response.json())
@@ -17,56 +20,61 @@ button.addEventListener('click', () => {
         <p>Directed by: ${data.Director}</p>
         <p>Starring: ${data.Actors}</p>
       `;
-      
+
+      // Get the watchlist button and its associated movie title
+      const watchlistButton = document.querySelector('.watchlist-button');
+      const movieTitle = watchlistButton.dataset.movieTitle;
+
+      // Add a click event listener to the watchlist button
+      watchlistButton.addEventListener('click', () => {
+        if (!loggedInUser) {
+          console.error('User not logged in');
+          return;
+        }
+
+        // Make a POST request to add the movie to the user's watchlist
+        fetch(`http://localhost:8080/api/users/username/${loggedInUser}/movies/watchlist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: movieTitle
+          }),
+          credentials: 'include'
+        })
+        .then(response => {
+          if (response.ok) {
+            // Reload the page to show the updated watchlist
+            location.reload();
+          } else {
+            console.error(`Failed to add movie to watchlist: ${response.statusText}`);
+          }
+        })
+        .catch(error => {
+          console.error('Error adding movie to watchlist:', error);
+        });
+      });
     })
     .catch(error => {
-      // Handle any errors that occur
-      console.error(error);
+      console.error('Error getting movie data:', error);
     });
 });
 
-// // Welcome message if successfully logged in
 
-// // Get query parameters from URL
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
 
-// // Get welcome message from query parameter
-// const message = urlParams.get('message');
 
-// // Display welcome message if exists
-// if (message) {
-//     document.getElementById('welcome-message').textContent = message;
-// }
 
-// const buttonLogin = document.querySelector('button[type="submit"]');
+              
+        
 
-// // Attach a click event listener to the watchlist button
-// movieDetails.addEventListener('click', (event) => {
-//   // Check if the clicked element is the watchlist button
-//   if (event.target.classList.contains('watchlist-button')) {
-//     // Extract the relevant movie details from the HTML
-//     const title = data.Title;
-//     // Send a POST request to your backend API endpoint
-//     fetch(`/api/users/${id}/movies`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         title: title,
-//       })
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       // Display a success message to the user
-//       const message = document.createElement('p');
-//       message.textContent = data.message;
-//       movieDetails.appendChild(message);
-//     })
-//     .catch(error => {
-//       // Handle any errors that occur
-//       console.error(error);
-//     });
-//   }
-// });
+
+
+
+ 
+
+
+
+
+
+

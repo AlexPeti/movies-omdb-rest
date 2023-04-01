@@ -58,17 +58,21 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public void addMovie(Long userId, Movie movie) {
+    public void addMovie(String username, Movie movie) {
         EntityManager em = getEntityManager();
-        User user = em.find(User.class, userId);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        User user = query.getSingleResult();
         user.getMovies().add(movie);
         em.merge(user);
     }
 
     @Override
-    public void removeMovie(Long userId, Movie movie) {
+    public void removeMovie(String username, Movie movie) {
         EntityManager em = getEntityManager();
-        User user = em.find(User.class, userId);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        User user = query.getSingleResult();
         user.getMovies().remove(movie);
         em.merge(user);
     }

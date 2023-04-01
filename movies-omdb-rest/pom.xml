@@ -90,6 +90,12 @@
 <!--            <artifactId>jaxb-api</artifactId>-->
 <!--            <version>2.4.0-b180830.0359</version>-->
 <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.15.1.Final</version>
+        </dependency>
 
 
 

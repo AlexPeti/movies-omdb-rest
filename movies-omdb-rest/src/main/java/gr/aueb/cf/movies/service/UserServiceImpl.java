@@ -152,25 +152,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User addMovie(Long id, Movie movie) {
-        EntityManager em = JPAHelper.getEntityManager();
-        User user = em.find(User.class, id);
+    public User addMovie(String username, Movie movie) {
+        User user = userDAO.getByUsername(username);
         user.getMovies().add(movie);
-        em.getTransaction().begin();
-        User updatedUser = em.merge(user);
-        em.getTransaction().commit();
-        return updatedUser;
+        userDAO.update(user);
+        return user;
     }
 
     @Override
-    public User removeMovie(Long id, Movie movie) {
-        EntityManager em = JPAHelper.getEntityManager();
-        User user = em.find(User.class, id);
+    public User removeMovie(String username, Movie movie) {
+        User user = userDAO.getByUsername(username);
         user.getMovies().remove(movie);
-        em.getTransaction().begin();
-        User updatedUser = em.merge(user);
-        em.getTransaction().commit();
-        return updatedUser;
+        userDAO.update(user);
+        return user;
     }
 
     @Override
