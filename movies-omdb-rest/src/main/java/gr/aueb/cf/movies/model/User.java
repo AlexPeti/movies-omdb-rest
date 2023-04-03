@@ -1,8 +1,8 @@
 package gr.aueb.cf.movies.model;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -19,6 +19,19 @@ public class User {
 
     @Column(name = "PASSWORD", length = 50, nullable = false)
     private String password;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "USER_MOVIE",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MOVIE_ID"))
+    private List<Movie> movies = new ArrayList<>();
+
+    public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -44,6 +57,20 @@ public class User {
         this.password = password;
     }
 
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void addMovie(Movie movie) {
+        movies.add(movie);
+        movie.getUsers().add(this);
+    }
+
+    public void removeMovie(Movie movie) {
+        movies.remove(movie);
+        movie.getUsers().remove(this);
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -51,36 +78,5 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return id.equals(user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    @ElementCollection
-    @CollectionTable(name = "USER_MOVIES", joinColumns = @JoinColumn(name = "USER_ID"))
-    private List<Movie> movies = new ArrayList<>();
-
-    public List<Movie> getMovies() {
-        return Collections.unmodifiableList(movies);
-    }
-
-    public void addMovie(Movie movie) {
-        movies.add(movie);
-    }
-
-    public void removeMovie(Movie movie) {
-        movies.remove(movie);
     }
 }

@@ -23,7 +23,7 @@ public class UserMovieController {
     public Response addMovieToWatchlist(@PathParam("username") String username, MovieDTO movieDTO) throws EntityNotFoundException {
         Movie movie = new Movie();
         movie.setTitle(movieDTO.getTitle());
-        User updatedUser = userService.addMovie(username, movie);
+        User updatedUser = userService.addMovieToWatchlist(username, movie);
         return Response.ok(updatedUser).build();
     }
 }

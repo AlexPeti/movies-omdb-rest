@@ -35,13 +35,27 @@ public class HelloApplication extends Application {
     }
 
     public static class CorsFeature implements DynamicFeature {
+//        @Override
+//        public void configure(ResourceInfo resourceInfo, FeatureContext context) {
+//            CorsFilter corsFilter = new CorsFilter();
+//            corsFilter.getAllowedOrigins().add("*");
+//            corsFilter.setAllowedHeaders("origin, content-type, accept, authorization");
+//            corsFilter.setAllowedMethods("GET, POST, PUT, DELETE, OPTIONS, HEAD");
+//            context.register(corsFilter);
+//        }
         @Override
         public void configure(ResourceInfo resourceInfo, FeatureContext context) {
             CorsFilter corsFilter = new CorsFilter();
             corsFilter.getAllowedOrigins().add("*");
             corsFilter.setAllowedHeaders("origin, content-type, accept, authorization");
             corsFilter.setAllowedMethods("GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+            // set the Access-Control-Allow-Origin header
+            corsFilter.getAllowedOrigins().add("http://127.0.0.1:5500"); // replace with your domain
+            corsFilter.setAllowCredentials(true);
+
             context.register(corsFilter);
         }
+
     }
 }

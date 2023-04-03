@@ -1,17 +1,39 @@
 package gr.aueb.cf.movies.model;
-
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Embeddable
+@Entity
+@Table(name = "MOVIES")
 public class Movie {
 
-    @Column(name = "TITLE", length = 256, nullable = false)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
+
+    @Column(name = "GENRE", length = 50, nullable = false)
+    private String genre;
+
+    @ManyToMany(mappedBy = "movies")
+    private List<User> users = new ArrayList<>();
 
     public Movie() {}
 
-    public Movie(String title) {
+    public Movie(String title, String genre) {
         this.title = title;
+        this.genre = genre;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -22,25 +44,25 @@ public class Movie {
         this.title = title;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Movie movie = (Movie) o;
-
-        return title.equals(movie.title);
-    }
-
-    @Override
-    public int hashCode() {
-        return title.hashCode();
-    }
 }
+

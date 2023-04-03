@@ -7,7 +7,6 @@ import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.movies.service.util.JPAHelper;
-import jakarta.persistence.EntityManager;
 
 import javax.inject.Inject;
 import javax.ws.rs.ext.Provider;
@@ -152,7 +151,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User addMovie(String username, Movie movie) {
+    public User addMovieToWatchlist(String username, Movie movie) {
         User user = userDAO.getByUsername(username);
         user.getMovies().add(movie);
         userDAO.update(user);
