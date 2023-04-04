@@ -24,7 +24,7 @@ public class MovieServiceImpl implements IMovieService {
         Movie movie = new Movie();
         movie.setId(movieDTO.getId());
         movie.setTitle(movieDTO.getTitle());
-        movie.setGenre(movieDTO.getGenre());
+        movie.setDirector(movieDTO.getDirector());
 
         List<User> users = movie.getUsers();
         List<UserDTO> usersDTO = movieDTO.getUsers();

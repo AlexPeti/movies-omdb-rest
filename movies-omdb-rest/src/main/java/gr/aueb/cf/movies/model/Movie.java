@@ -15,17 +15,17 @@ public class Movie {
     @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
 
-    @Column(name = "GENRE", length = 50, nullable = false)
-    private String genre;
+    @Column(name = "DIRECTOR", length = 50, nullable = false)
+    private String director;
 
     @ManyToMany(mappedBy = "movies")
     private List<User> users = new ArrayList<>();
 
     public Movie() {}
 
-    public Movie(String title, String genre) {
+    public Movie(String title, String director) {
         this.title = title;
-        this.genre = genre;
+        this.director = director;
     }
 
     public Long getId() {
@@ -44,12 +44,12 @@ public class Movie {
         this.title = title;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getDirector() {
+        return director;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public List<User> getUsers() {
@@ -61,7 +61,7 @@ public class Movie {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
+                ", genre='" + director + '\'' +
                 '}';
     }
 }

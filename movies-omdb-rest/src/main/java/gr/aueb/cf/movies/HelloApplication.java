@@ -51,7 +51,7 @@ public class HelloApplication extends Application {
             corsFilter.setAllowedMethods("GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
             // set the Access-Control-Allow-Origin header
-            corsFilter.getAllowedOrigins().add("http://127.0.0.1:5500"); // replace with your domain
+            corsFilter.getAllowedOrigins().add("http://127.0.0.1:5500");
             corsFilter.setAllowCredentials(true);
 
             context.register(corsFilter);

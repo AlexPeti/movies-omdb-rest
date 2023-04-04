@@ -22,7 +22,9 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public User update(User user) {
+        EntityManager em = getEntityManager();
         getEntityManager().merge(user);
+        em.persist(user);
         return user;
     }
 

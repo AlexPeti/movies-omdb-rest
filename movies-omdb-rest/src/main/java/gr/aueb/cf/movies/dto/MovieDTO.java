@@ -7,15 +7,15 @@ public class MovieDTO {
 
     private Long id;
     private String title;
-    private String genre;
+    private String director;
     private List<UserDTO> users = new ArrayList<>();
 
     public MovieDTO() {}
 
-    public MovieDTO(Long id, String title, String genre) {
+    public MovieDTO(Long id, String title, String director) {
         this.id = id;
         this.title = title;
-        this.genre = genre;
+        this.director = director;
     }
 
     public Long getId() {
@@ -34,12 +34,12 @@ public class MovieDTO {
         this.title = title;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getDirector() {
+        return director;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public List<UserDTO> getUsers() {

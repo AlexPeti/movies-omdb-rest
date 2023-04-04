@@ -30,12 +30,15 @@ public class UserServiceImpl implements IUserService {
         for (Movie movie : movies) {
             MovieDTO movieDTO = new MovieDTO();
             movieDTO.setTitle(movie.getTitle());
+            movieDTO.setDirector(movie.getDirector());
             moviesDTO.add(movieDTO);
         }
         userDTO.setMovies(moviesDTO);
 
         return user;
     }
+
+
     @Override
     public User insertUser(UserDTO userDTO) {
         User user;
