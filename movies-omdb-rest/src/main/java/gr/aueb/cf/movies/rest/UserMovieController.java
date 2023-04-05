@@ -4,10 +4,12 @@ import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.IUserService;
 import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
-import gr.aueb.cf.movies.service.util.JPAHelper;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,15 +35,12 @@ public class UserMovieController {
 
         // Create a new Movie object with the provided title and director
         Movie movie = new Movie(title, director);
-        
 
         // Add the movie to the user's watchlist
         User updatedUser = userService.getUserById(user.getId());
         updatedUser = userService.addMovieToWatchlist(username,movie);
-//        User updatedUser = userService.addMovieToWatchlist(username, movie);
 
         // Return a JSON response with the updated user
         return Response.ok(updatedUser).build();
     }
-
 }

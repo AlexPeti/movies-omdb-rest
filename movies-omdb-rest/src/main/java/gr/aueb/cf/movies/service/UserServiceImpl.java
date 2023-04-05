@@ -155,19 +155,34 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User addMovieToWatchlist(String username, Movie movie) {
-        User user = userDAO.getByUsername(username);
-        user.getMovies().add(movie);
-        userDAO.update(user);
+        User user;
+        try {
+            JPAHelper.beginTransaction();
+            user = userDAO.getByUsername(username);
+            user.getMovies().add(movie);
+            userDAO.update(user);
+            JPAHelper.commitTransaction();
+        } finally {
+            JPAHelper.closeEntityManager();
+        }
         return user;
     }
 
     @Override
-    public User removeMovie(String username, Movie movie) {
-        User user = userDAO.getByUsername(username);
-        user.getMovies().remove(movie);
-        userDAO.update(user);
+    public User removeMovieFromWatchlist(String username, Movie movie) {
+        User user;
+        try {
+            JPAHelper.beginTransaction();
+            user = userDAO.getByUsername(username);
+            user.getMovies().remove(movie);
+            userDAO.update(user);
+            JPAHelper.commitTransaction();
+        } finally {
+            JPAHelper.closeEntityManager();
+        }
         return user;
     }
+
 
     @Override
     public User authenticateUser(String username, String password) throws EntityNotFoundException {
