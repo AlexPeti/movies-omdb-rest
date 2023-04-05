@@ -21,7 +21,6 @@ public class UserDAOImpl implements IUserDAO {
     public User update(User user) {
         EntityManager em = getEntityManager();
         getEntityManager().merge(user);
-//        em.persist(user);
         return user;
     }
 
@@ -56,46 +55,26 @@ public class UserDAOImpl implements IUserDAO {
         return em.find(User.class,id);
     }
 
-//    @Override
-//    public void addMovie(String username, Movie movie) {
-//        EntityManager em = getEntityManager();
-//        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
-//        query.setParameter("username", username);
-//        User user = query.getSingleResult();
-//        user.getMovies().add(movie);
-//        em.merge(user);
-//        em.persist(user);
-//    }
-//
-//    @Override
-//    public void removeMovie(String username, Movie movie) {
-//        EntityManager em = getEntityManager();
-//        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
-//        query.setParameter("username", username);
-//        User user = query.getSingleResult();
-//        user.getMovies().remove(movie);
-//        em.merge(user);
-//    }
-@Override
-public void addMovie(User user, Movie movie) {
-    if (!user.getMovies().contains(movie)) {
-        EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            user.addMovie(movie);
-            em.merge(user);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
+    @Override
+    public void addMovie(User user, Movie movie) {
+        if (!user.getMovies().contains(movie)) {
+            EntityManager em = getEntityManager();
+            EntityTransaction transaction = em.getTransaction();
+            try {
+                transaction.begin();
+                user.addMovie(movie);
+                em.merge(user);
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+                e.printStackTrace();
+            } finally {
+                em.close();
             }
-            e.printStackTrace();
-        } finally {
-            em.close();
         }
     }
-}
 
     @Override
     public void removeMovie(User user, Movie movie) {

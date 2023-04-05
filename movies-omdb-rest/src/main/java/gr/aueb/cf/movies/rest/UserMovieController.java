@@ -41,7 +41,6 @@ public class UserMovieController {
         updatedUser = userService.addMovieToWatchlist(username,movie);
 
         // Return a JSON response with the updated user
-//        return Response.ok(updatedUser).build();
         return Response.status(Response.Status.OK).build();
     }
 }

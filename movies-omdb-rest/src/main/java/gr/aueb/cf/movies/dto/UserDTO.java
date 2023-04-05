@@ -1,7 +1,5 @@
 package gr.aueb.cf.movies.dto;
 
-import gr.aueb.cf.movies.model.Movie;
-
 import java.util.ArrayList;
 import java.util.List;
 

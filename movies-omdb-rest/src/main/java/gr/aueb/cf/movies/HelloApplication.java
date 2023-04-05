@@ -1,6 +1,5 @@
 package gr.aueb.cf.movies;
 
-import gr.aueb.cf.movies.rest.CurrentUserController;
 import gr.aueb.cf.movies.rest.LoginController;
 import gr.aueb.cf.movies.rest.MovieController;
 import gr.aueb.cf.movies.rest.UserMovieController;
@@ -19,7 +18,6 @@ public class HelloApplication extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        classes.add(CurrentUserController.class);
         classes.add(LoginController.class);
         classes.add(MovieController.class);
         classes.add(UserMovieController.class);
@@ -35,14 +33,6 @@ public class HelloApplication extends Application {
     }
 
     public static class CorsFeature implements DynamicFeature {
-//        @Override
-//        public void configure(ResourceInfo resourceInfo, FeatureContext context) {
-//            CorsFilter corsFilter = new CorsFilter();
-//            corsFilter.getAllowedOrigins().add("*");
-//            corsFilter.setAllowedHeaders("origin, content-type, accept, authorization");
-//            corsFilter.setAllowedMethods("GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//            context.register(corsFilter);
-//        }
         @Override
         public void configure(ResourceInfo resourceInfo, FeatureContext context) {
             CorsFilter corsFilter = new CorsFilter();
