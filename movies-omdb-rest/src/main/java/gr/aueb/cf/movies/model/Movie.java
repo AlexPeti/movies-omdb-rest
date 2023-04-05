@@ -18,7 +18,7 @@ public class Movie {
     @Column(name = "DIRECTOR", length = 50, nullable = false)
     private String director;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
 
     public Movie() {}
