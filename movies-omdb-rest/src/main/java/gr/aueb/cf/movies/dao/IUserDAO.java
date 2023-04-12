@@ -14,5 +14,6 @@ public interface IUserDAO {
     User getById(Long id);
     void addMovie(User user, Movie movie);
     void removeMovie(User user, Movie movie);
+    public List<Movie> getAllMoviesByUsername(String username);
     User authenticate(String username, String password);
 }

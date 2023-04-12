@@ -1,4 +1,4 @@
-package gr.aueb.cf.movies.service.util;
+package gr.aueb.cf.movies;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

@@ -19,6 +19,7 @@ public class MovieServiceImpl implements IMovieService {
 
     @Inject
     IMovieDAO movieDAO;
+//    IMovieDAO movieDAO = new MovieDAOImpl();
 
     private Movie map(MovieDTO movieDTO) {
         Movie movie = new Movie();
@@ -39,30 +40,45 @@ public class MovieServiceImpl implements IMovieService {
         return movie;
     }
 
-
     @Override
     public List<Movie> getMoviesByTitle(String title) {
+        EntityManager entityManager = JPAHelper.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            EntityManager entityManager = JPAHelper.getEntityManager();
+            transaction.begin();
             TypedQuery<Movie> query = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE :title", Movie.class);
             query.setParameter("title", "%" + title + "%");
             List<Movie> movies = query.getResultList();
+            transaction.commit();
             return movies;
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
         } finally {
             JPAHelper.closeEntityManager();
         }
     }
 
     @Override
-    public List<Movie> getWatchlist(String username) {
+    public List<Movie> getMoviesByUsername(String username) {
+        EntityManager em = JPAHelper.getEntityManager();
         try {
-            EntityManager entityManager = JPAHelper.getEntityManager();
-            TypedQuery<Movie> query = entityManager.createQuery("SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username", Movie.class);
-            query.setParameter("username", username);
-            List<Movie> movies = query.getResultList();
+            em.getTransaction().begin();
+
+            // Call the DAO method to retrieve movies based on username
+            List<Movie> movies = movieDAO.getMoviesByUsername(username);
+
+            em.getTransaction().commit();
+
             return movies;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            // Handle exception or re-throw
+            throw new RuntimeException("Failed to get movies for username: " + username, e);
         } finally {
-            JPAHelper.closeEntityManager();
+            em.close();
         }
     }
 

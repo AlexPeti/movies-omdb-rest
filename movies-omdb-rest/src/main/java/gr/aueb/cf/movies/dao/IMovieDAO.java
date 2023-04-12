@@ -16,9 +16,9 @@ public interface IMovieDAO {
 
     List<Movie> getAllMovies();
 
-    List<Movie> getMoviesByGenre(String genre);
+    List<Movie> getMoviesByDirector(String director);
 
-    List<Movie> getMoviesByUser(User user);
+    List<Movie> getMoviesByUsername(String username);
 
     List<Movie> getMoviesByTitle(String title);
 

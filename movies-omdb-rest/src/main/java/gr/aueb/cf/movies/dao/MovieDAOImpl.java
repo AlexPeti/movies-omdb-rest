@@ -1,7 +1,6 @@
 package gr.aueb.cf.movies.dao;
 
 import gr.aueb.cf.movies.model.Movie;
-import gr.aueb.cf.movies.model.User;
 import gr.aueb.cf.movies.service.util.JPAHelper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -47,19 +46,25 @@ public class MovieDAOImpl implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByGenre(String genre) {
-        String jpql = "SELECT m FROM Movie m WHERE m.genre = :genre";
+    public List<Movie> getMoviesByDirector(String director) {
+        String jpql = "SELECT m FROM Movie m WHERE m.director = :director";
         TypedQuery<Movie> query = getEntityManager().createQuery(jpql, Movie.class);
-        query.setParameter("genre", genre);
+        query.setParameter("genre", director);
         return query.getResultList();
     }
 
     @Override
-    public List<Movie> getMoviesByUser(User user) {
-        String jpql = "SELECT m FROM Movie m JOIN m.users u WHERE u = :user";
-        TypedQuery<Movie> query = getEntityManager().createQuery(jpql, Movie.class);
-        query.setParameter("user", user);
-        return query.getResultList();
+    public List<Movie> getMoviesByUsername(String username) {
+        EntityManager em = JPAHelper.getEntityManager();
+
+        try {
+            String jpql = "SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username";
+            TypedQuery<Movie> query = em.createQuery(jpql, Movie.class);
+            query.setParameter("username", username);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -69,7 +74,6 @@ public class MovieDAOImpl implements IMovieDAO {
         query.setParameter("title", title + "%");
         return query.getResultList();
     }
-
 
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();

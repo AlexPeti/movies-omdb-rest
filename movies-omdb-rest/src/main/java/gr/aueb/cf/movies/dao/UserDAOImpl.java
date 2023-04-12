@@ -97,6 +97,17 @@ public class UserDAOImpl implements IUserDAO {
         }
     }
 
+    @Override
+    public List<Movie> getAllMoviesByUsername(String username) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username", Movie.class);
+            query.setParameter("username", username);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();

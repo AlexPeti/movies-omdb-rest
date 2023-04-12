@@ -13,9 +13,9 @@ public interface IUserService {
     void deleteUser(Long id) throws EntityNotFoundException;
     User getUserById(Long id) throws EntityNotFoundException;
     List<User> getUsersByUsername(String username) throws EntityNotFoundException;
-
     User getUserByUsername(String username) throws EntityNotFoundException;
     User addMovieToWatchlist(String username, Movie movie);
     User removeMovieFromWatchlist(String username, Movie movie);
+    List<Movie> getAllMoviesByUsername(String username) throws EntityNotFoundException;
     User authenticateUser(String username, String password) throws EntityNotFoundException;
 }

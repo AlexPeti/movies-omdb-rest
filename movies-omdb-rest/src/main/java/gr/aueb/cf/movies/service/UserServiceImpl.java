@@ -25,18 +25,19 @@ public class UserServiceImpl implements IUserService {
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
 
-        List<Movie> movies = user.getMovies();
-        List<MovieDTO> moviesDTO = new ArrayList<>();
-        for (Movie movie : movies) {
-            MovieDTO movieDTO = new MovieDTO();
-            movieDTO.setTitle(movie.getTitle());
-            movieDTO.setDirector(movie.getDirector());
-            moviesDTO.add(movieDTO);
+        List<Movie> movies = new ArrayList<>();
+        for (MovieDTO movieDTO : userDTO.getMovies()) {
+            Movie movie = new Movie();
+            movie.setTitle(movieDTO.getTitle());
+            movie.setDirector(movieDTO.getDirector());
+            movies.add(movie);
         }
-        userDTO.setMovies(moviesDTO);
+
+        user.setMovies(movies);
 
         return user;
     }
+
 
 
     @Override
@@ -183,6 +184,24 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
+    @Override
+    public List<Movie> getAllMoviesByUsername(String username) throws EntityNotFoundException {
+        try {
+            JPAHelper.beginTransaction();
+            User user = userDAO.getByUsername(username);
+            if (user == null) {
+                throw new EntityNotFoundException(User.class, 0L);
+            }
+            List<Movie> movies = user.getMovies();
+            JPAHelper.commitTransaction();
+            return movies;
+        } catch (EntityNotFoundException e) {
+            JPAHelper.rollbackTransaction();
+            throw e;
+        } finally {
+            JPAHelper.closeEntityManager();
+        }
+    }
 
     @Override
     public User authenticateUser(String username, String password) throws EntityNotFoundException {

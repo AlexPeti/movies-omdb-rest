@@ -1,5 +1,6 @@
 package gr.aueb.cf.movies;
 
+import gr.aueb.cf.movies.rest.GetMoviesByUsernameController;
 import gr.aueb.cf.movies.rest.LoginController;
 import gr.aueb.cf.movies.rest.MovieController;
 import gr.aueb.cf.movies.rest.UserMovieController;
@@ -21,6 +22,7 @@ public class HelloApplication extends Application {
         classes.add(LoginController.class);
         classes.add(MovieController.class);
         classes.add(UserMovieController.class);
+        classes.add(GetMoviesByUsernameController.class);
         return classes;
     }
 

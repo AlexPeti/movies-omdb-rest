@@ -61,7 +61,7 @@ public class Movie {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", genre='" + director + '\'' +
+                ", director='" + director + '\'' +
                 '}';
     }
 }

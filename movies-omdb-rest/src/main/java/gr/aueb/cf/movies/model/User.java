@@ -60,6 +60,9 @@ public class User {
     public List<Movie> getMovies() {
         return movies;
     }
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 
     public void addMovie(Movie movie) {
         movies.add(movie);
