@@ -24,7 +24,7 @@ public class GetMoviesByUsernameController {
     private IMovieService movieService;
 
     /**
-     * Fetches the titles of the movies from a user's list of movies.
+     * Fetches the titles of the movies from a user's list of movies
      *
      * @param username the user's username
      * @return the titles of the movies from a user's movie list
