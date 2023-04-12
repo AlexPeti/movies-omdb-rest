@@ -1,10 +1,7 @@
 package gr.aueb.cf.movies.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.service.IMovieService;
-import gr.aueb.cf.movies.service.MovieServiceImpl;
 
 import javax.inject.Inject;
 import javax.json.*;
@@ -13,7 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.StringWriter;
@@ -28,53 +24,10 @@ public class GetMoviesByUsernameController {
     private IMovieService movieService;
 
     /**
-     * LEITOURGEI KANONIKA, TA FERNEI OLA ALLA ME EXTRA METADATA
-     * @param username
-     * @return
-     */
-//    @GET
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getMoviesByUsername(@QueryParam("username") String username) {
-//        if (username == null || username.isEmpty()) {
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Username cannot be empty")
-//                    .build();
-//        }
-//
-//        List<Movie> movies = movieService.getMoviesByUsername(username);
-//
-//        if (movies == null || movies.isEmpty()) {
-//            return Response.noContent().build();
-//        } else {
-//            // Convert the list of movies to a JSON array
-//            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-//            for (Movie movie : movies) {
-//                JsonObject jsonObject = Json.createObjectBuilder()
-//                        .add("id", movie.getId())
-//                        .add("title", movie.getTitle())
-//                        .add("director", movie.getDirector())
-//                        .build();
-//                jsonArrayBuilder.add(jsonObject);
-//            }
-//            JsonArray jsonArray = jsonArrayBuilder.build();
-//
-//            // Create a JSON object containing the JSON array
-//            JsonObject jsonObject = Json.createObjectBuilder()
-//                    .add("movies", jsonArray)
-//                    .build();
-//
-//            // Return the JSON object as the response entity
-//            return Response.status(Response.Status.OK).entity(jsonObject).build();
-//        }
-//    }
-
-
-    /**
-     * LEITOURGEI KANONIKOTATA, AFAIREI TA METADATA OPOTE EXEIS OTI TOU ZHTHSEIS NA KANEI BUILD
-     * MPOREIS OLA TA STOIXEIA THS TAINIAS H MONO TITLO.
-     * @param username
-     * @return
+     * Fetches the titles of the movies from a user's list of movies.
+     *
+     * @param username the user's username
+     * @return the titles of the movies from a user's movie list
      */
     @GET
     @Path("/watchlist")
@@ -134,8 +87,4 @@ public class GetMoviesByUsernameController {
             return Response.status(Response.Status.OK).entity(json).build();
         }
     }
-
-
 }
-
-

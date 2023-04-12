@@ -1,4 +1,4 @@
-//////////////////////////// Log-in script ////////////////////////////////////////
+// Log-in script
 
   $(document).ready(function() {
   let loggedInUser; 
@@ -34,7 +34,7 @@
       });
   });
 
-  ///////////////////////////// Searching for movies script /////////////////////////////////////////////
+  // Searching for movies script
 
   const $button = $('.btn-search');
   const $input = $('.search-input');
@@ -71,7 +71,7 @@
           title: data.Title
         };
 
-///////////////////////// Adding a movie to the logged in user's watchlist logic //////////////////////////
+// Adding a movie to the logged in user's watchlist logic
 
         $.ajax({
           type: 'POST',
@@ -99,55 +99,37 @@
       console.log(statusText);
     });
   });
-});
 
 
-///////////////////////////// Get watchlist /////////////////////////////////////////////
-
-
-const $loginForm = $('#loginForm');
-const $getWatchlistButton = $('.my-watchlist-button');
-let loggedInUser; // Global variable to store logged-in user
-
-$loginForm.on('submit', (event) => {
-  event.preventDefault();
-  const username = $('#username').val();
-  const password = $('#password').val();
-  login(username, password);
-});
-
-$getWatchlistButton.on('click', () => {
-  if (!loggedInUser) {
-    console.error('User not logged in');
-    return;
-  }
-
-  getWatchlist(loggedInUser);
-});
-
-function login(username, password) {
-  // Perform login logic and set loggedInUser value
-  // ...
-  loggedInUser = username; // Store logged-in user in global variable
-}
-
-function getWatchlist(username) {
-  $.ajax({
-    type: 'GET',
-    url: `http://localhost:8080/api/user/${username}/watchlist`,
-    dataType: 'json'
-  })
-  .done(data => {
-    // Update the DOM with the movie titles
-    const movieTitles = data.map(movie => movie.title); // Assuming the movie data is an array of objects with a "title" property
-    const movieTitlesString = movieTitles.join(', '); // Convert the movie titles to a string separated by commas
-    $('#myMovieContainer').text(movieTitlesString); // Update the DOM with the movie titles
-  })
-  .fail(error => {
-    console.error('Failed to get watchlist:', error);
+// AJAX call to retrieve the logged in user's watchlist
+  $('#myMovies').on('click', function() {
+    if (!loggedInUser) {
+      console.error('User not logged in');
+      return;
+    }
+    // Call the /user/watchlist endpoint to get movies by username
+    $.ajax({
+      url: `http://localhost:8080/api/user/watchlist?username=${loggedInUser}`,
+      type: 'GET',
+      dataType: 'json',
+      xhrFields: {
+        withCredentials: true
+      }
+    })
+    .done(function(data) {
+      // Clear existing movie list
+      $('#myMovieContainer').empty();
+      // Loop through the movies and append only the movie titles to the container
+      for (let i = 0; i < data.movies.length; i++) {
+        const movieTitle = data.movies[i].title;
+        // Append movie title to a div container
+        $('#myMovieContainer').append(`<div>${movieTitle}</div>`);
+      }
+    })
+    .fail(function(xhr, statusText, error) {
+      console.error('Error getting watchlist:', error);
+      console.log(xhr);
+      console.log(statusText);
+    });
   });
-}
-
-
-
-
+});
