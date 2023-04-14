@@ -1,6 +1,9 @@
 package gr.aueb.cf.movies.service;
 
+import gr.aueb.cf.movies.dao.IMovieDAO;
 import gr.aueb.cf.movies.dao.IUserDAO;
+import gr.aueb.cf.movies.dao.MovieDAOImpl;
+import gr.aueb.cf.movies.dao.UserDAOImpl;
 import gr.aueb.cf.movies.dto.MovieDTO;
 import gr.aueb.cf.movies.dto.UserDTO;
 import gr.aueb.cf.movies.model.Movie;
@@ -18,6 +21,9 @@ public class UserServiceImpl implements IUserService {
 
     @Inject
     IUserDAO userDAO;
+
+    @Inject
+    IMovieDAO movieDAO;
 
     private User map(UserDTO userDTO) {
         User user = new User();
@@ -37,8 +43,6 @@ public class UserServiceImpl implements IUserService {
 
         return user;
     }
-
-
 
     @Override
     public User insertUser(UserDTO userDTO) {

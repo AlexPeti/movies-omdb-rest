@@ -3,6 +3,7 @@ package gr.aueb.cf.movies.dao;
 import java.util.List;
 import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
+import jakarta.persistence.EntityManager;
 
 public interface IMovieDAO {
 
@@ -22,5 +23,6 @@ public interface IMovieDAO {
 
     List<Movie> getMoviesByTitle(String title);
 
+    Movie getMovieByTitle(String title);
 }
 

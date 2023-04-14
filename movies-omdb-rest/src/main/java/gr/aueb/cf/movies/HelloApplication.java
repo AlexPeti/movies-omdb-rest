@@ -1,9 +1,6 @@
 package gr.aueb.cf.movies;
 
-import gr.aueb.cf.movies.rest.GetMoviesByUsernameController;
-import gr.aueb.cf.movies.rest.LoginController;
-import gr.aueb.cf.movies.rest.MovieController;
-import gr.aueb.cf.movies.rest.UserMovieController;
+import gr.aueb.cf.movies.rest.*;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 import javax.ws.rs.ApplicationPath;
@@ -21,8 +18,9 @@ public class HelloApplication extends Application {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(LoginController.class);
         classes.add(MovieController.class);
-        classes.add(UserMovieController.class);
+        classes.add(AddMovieToWatchlistController.class);
         classes.add(GetMoviesByUsernameController.class);
+        classes.add(RemoveMovieFromWatchlistController.class);
         return classes;
     }
 

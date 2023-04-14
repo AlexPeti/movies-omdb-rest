@@ -75,6 +75,15 @@ public class MovieDAOImpl implements IMovieDAO {
         return query.getResultList();
     }
 
+    @Override
+    public Movie getMovieByTitle(String title) {
+        String jpql = "SELECT m FROM Movie m WHERE m.title = :title"; // Update the JPQL to search for an exact match
+        TypedQuery<Movie> query = getEntityManager().createQuery(jpql, Movie.class);
+        query.setParameter("title", title); // Update the parameter to set the title directly
+        List<Movie> movies = query.getResultList();
+        return movies.isEmpty() ? null : movies.get(0); // Return the first movie if found, or null if not found
+    }
+
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();
     }

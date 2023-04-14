@@ -18,7 +18,7 @@ public class Movie {
     @Column(name = "DIRECTOR", length = 50, nullable = false)
     private String director;
 
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER , cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<User> users = new ArrayList<>();
 
     public Movie() {}
@@ -54,6 +54,21 @@ public class Movie {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        return title.equals(movie.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode();
     }
 
     @Override

@@ -5,8 +5,10 @@ import gr.aueb.cf.movies.model.Movie;
 import java.util.List;
 
 public interface IMovieService {
-    public List<Movie> getMoviesByTitle(String title);
-    public List<Movie> getMoviesByUsername(String username);
-    public void addToWatchlist(String username, String title);
-    public void removeFromWatchlist(String username, String title);
+    List<Movie> getMoviesByTitle(String title);
+    Movie getMovieByTitle(String title);
+    List<Movie> getMoviesByUsername(String username);
+    void addToWatchlist(String username, String title);
+    void removeFromWatchlist(String username, String title);
+
 }
