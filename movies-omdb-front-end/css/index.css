@@ -48,3 +48,35 @@
     font-size: 2em;
   }
 
+
+  .navbar {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    align-items: center;
+    padding: 10px;
+    background-color: #2c2b2b;
+    color: #fff;
+    width: 100%;
+  }
+  
+  .login-form {
+    display: flex;
+  }
+  
+  .login-form label,
+  .login-form input[type="text"],
+  .login-form input[type="password"],
+  .login-form input[type="submit"] {
+    margin: 0 5px;
+  }
+  
+  .login-form input[type="submit"] {
+    background-color: rgb(55, 145, 197);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+
