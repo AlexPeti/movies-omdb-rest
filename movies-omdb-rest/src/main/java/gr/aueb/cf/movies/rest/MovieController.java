@@ -10,18 +10,25 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * MovieController is a RESTful web service endpoint for retrieving movie details from the OMDB API by using the movie title.
+ * The endpoint is accessed via HTTP GET request to the "/api/movies/title" path.
+ *<p>
+ * Http Method: GET
+ * Path: /api/movies/title
+ *
+ * @version 1.0
+ */
 @Path("/movies")
 public class MovieController {
     @Inject
     private OmdbApiService omdbApiService;
 
     /**
-     *Retrieves a movie from the OMDB API by using the movie title.
-     * @param title
-     * the title to search for
+     *Retrieves movie details from the OMDB API by using the movie title.
      *
-     * @return
-     * the movie details
+     * @param title The title of the movie to retrieve
+     * @return A JSON response containing the details of the movie
      */
     @GET
     @Path("/title")

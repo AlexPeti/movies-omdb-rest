@@ -14,13 +14,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-
+/**
+ * This class represents a RESTful web service endpoint for user authentication.
+ * The endpoint is accessed via HTTP POST request to the "/api/login/authenticate" path.
+ * It takes in form parameters for username and password, and returns a JSON response
+ * containing the username of the authenticated user if successful, or a 401 UNAUTHORIZED
+ * response if authentication fails.
+ *<p>
+ * Http Method: POST
+ * Path: /api/login/authenticate
+ *
+ * @version 1.0
+ */
 @Path("/login")
 public class LoginController {
 
     @Inject
     IUserDAO userDAO;
 
+    /**
+     * Authenticates a user based on the provided username and password.
+     *
+     * @param formParams A MultivaluedMap containing the form parameters for username and password.
+     * @return A Response object with a JSON response containing the username of the authenticated user
+     *         if successful, or a 401 UNAUTHORIZED response if authentication fails.
+     */
     @POST
     @Path("/authenticate")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
@@ -42,5 +60,4 @@ public class LoginController {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
-
 }

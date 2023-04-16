@@ -56,15 +56,10 @@ public class MovieDAOImpl implements IMovieDAO {
     @Override
     public List<Movie> getMoviesByUsername(String username) {
         EntityManager em = JPAHelper.getEntityManager();
-
-        try {
-            String jpql = "SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username";
-            TypedQuery<Movie> query = em.createQuery(jpql, Movie.class);
-            query.setParameter("username", username);
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
+        String jpql = "SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username";
+        TypedQuery<Movie> query = em.createQuery(jpql, Movie.class);
+        query.setParameter("username", username);
+        return query.getResultList();
     }
 
     @Override
@@ -84,6 +79,11 @@ public class MovieDAOImpl implements IMovieDAO {
         return movies.isEmpty() ? null : movies.get(0); // Return the first movie if found, or null if not found
     }
 
+    /**
+     * Retrieves an instance of {@link EntityManager} from the {@link JPAHelper} class.
+     *
+     * @return An instance of {@link EntityManager}.
+     */
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();
     }

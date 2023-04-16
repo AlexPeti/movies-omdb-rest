@@ -11,8 +11,17 @@ import javax.ws.rs.core.FeatureContext;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The root application class for the Movies API.
+ */
 @ApplicationPath("/api")
 public class HelloApplication extends Application {
+
+    /**
+     * Retrieves the set of resource classes that are part of this application.
+     *
+     * @return The set of resource classes
+     */
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
@@ -24,6 +33,11 @@ public class HelloApplication extends Application {
         return classes;
     }
 
+    /**
+     * Retrieves the set of singleton objects that are part of this application.
+     *
+     * @return The set of singleton objects
+     */
     @Override
     public Set<Object> getSingletons() {
         Set<Object> singletons = new HashSet<>();
@@ -32,7 +46,17 @@ public class HelloApplication extends Application {
         return singletons;
     }
 
+    /**
+     * Implementation of a dynamic feature for configuring Cross-Origin Resource Sharing (CORS) filter.
+     */
     public static class CorsFeature implements DynamicFeature {
+
+        /**
+         * Configures the CORS filter for a resource.
+         *
+         * @param resourceInfo The resource information
+         * @param context The feature context
+         */
         @Override
         public void configure(ResourceInfo resourceInfo, FeatureContext context) {
             CorsFilter corsFilter = new CorsFilter();
@@ -46,6 +70,5 @@ public class HelloApplication extends Application {
 
             context.register(corsFilter);
         }
-
     }
 }

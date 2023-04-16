@@ -17,6 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents a RESTful web service endpoint for retrieving movies by username.
+ * The endpoint is accessed via HTTP GET request to the "/api/user/watchlist" path.
+ * The response is in JSON format and contains a list of movies associated with the given username.
+ *<p>
+ * HTTP Method: GET
+ * Path: /api/user/watchlist
+ *
+ * @version 1.0
+ */
 @Path("/user")
 public class GetMoviesByUsernameController {
 
@@ -24,10 +34,11 @@ public class GetMoviesByUsernameController {
     private IMovieService movieService;
 
     /**
-     * Fetches the titles of the movies from a user's list of movies
+     * Retrieves movies associated with the given username.
      *
-     * @param username the user's username
-     * @return the titles of the movies from a user's movie list
+     * @param username the username for which to retrieve movies
+     * @return a Response object containing the retrieved movies in JSON format
+     * @throws IllegalArgumentException if the username is empty or null
      */
     @GET
     @Path("/watchlist")

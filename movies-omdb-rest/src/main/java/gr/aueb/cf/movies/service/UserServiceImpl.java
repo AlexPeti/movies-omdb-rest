@@ -1,9 +1,6 @@
 package gr.aueb.cf.movies.service;
 
-import gr.aueb.cf.movies.dao.IMovieDAO;
 import gr.aueb.cf.movies.dao.IUserDAO;
-import gr.aueb.cf.movies.dao.MovieDAOImpl;
-import gr.aueb.cf.movies.dao.UserDAOImpl;
 import gr.aueb.cf.movies.dto.MovieDTO;
 import gr.aueb.cf.movies.dto.UserDTO;
 import gr.aueb.cf.movies.model.Movie;
@@ -22,9 +19,6 @@ public class UserServiceImpl implements IUserService {
     @Inject
     IUserDAO userDAO;
 
-    @Inject
-    IMovieDAO movieDAO;
-
     private User map(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
@@ -34,8 +28,13 @@ public class UserServiceImpl implements IUserService {
         List<Movie> movies = new ArrayList<>();
         for (MovieDTO movieDTO : userDTO.getMovies()) {
             Movie movie = new Movie();
+            movie.setId(movieDTO.getId()); // Set movie ID if available in MovieDTO
             movie.setTitle(movieDTO.getTitle());
             movie.setDirector(movieDTO.getDirector());
+
+            // Add the user to the movie's list of users
+            movie.getUsers().add(user);
+
             movies.add(movie);
         }
 
@@ -186,25 +185,6 @@ public class UserServiceImpl implements IUserService {
             JPAHelper.closeEntityManager();
         }
         return user;
-    }
-
-    @Override
-    public List<Movie> getAllMoviesByUsername(String username) throws EntityNotFoundException {
-        try {
-            JPAHelper.beginTransaction();
-            User user = userDAO.getByUsername(username);
-            if (user == null) {
-                throw new EntityNotFoundException(User.class, 0L);
-            }
-            List<Movie> movies = user.getMovies();
-            JPAHelper.commitTransaction();
-            return movies;
-        } catch (EntityNotFoundException e) {
-            JPAHelper.rollbackTransaction();
-            throw e;
-        } finally {
-            JPAHelper.closeEntityManager();
-        }
     }
 
     @Override

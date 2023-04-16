@@ -2,7 +2,6 @@ package gr.aueb.cf.movies.rest;
 
 import gr.aueb.cf.movies.model.Movie;
 import gr.aueb.cf.movies.model.User;
-import gr.aueb.cf.movies.service.IMovieService;
 import gr.aueb.cf.movies.service.IUserService;
 import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
 
@@ -14,15 +13,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * RemoveMovieFromWatchlistController class is a RESTful web service that provides an endpoint for removing a movie from a user's watchlist.
+ * The endpoint is accessed via HTTP PUT request to the "/user/watchlist/{username}/{title}" path.
+ * It takes in path parameters for username and title, and returns a JSON response
+ * with status OK if the movie is removed successfully, or BAD REQUEST if the movie is not found in the user's watchlist.
+ * <p>
+ * HTTP Method: PUT
+ * Path: /user/watchlist/{username}/{title}
+ *
+ * @version 1.0
+ */
+
 @Path("/user")
 public class RemoveMovieFromWatchlistController {
 
     @Inject
     private IUserService userService;
 
-    @Inject
-    private IMovieService movieService;
-
+    /**
+     * Removes a movie from the user's watchlist.
+     *
+     * @param username The username of the user.
+     * @param title The title of the movie to remove from the watchlist.
+     * @return A JSON response with status OK if the movie is removed successfully, or BAD REQUEST if the movie is not found in the user's watchlist.
+     * @throws EntityNotFoundException if the username does not exist in the system.
+     */
     @PUT
     @Path("/watchlist/{username}/{title}")
     @Produces(MediaType.APPLICATION_JSON)

@@ -13,12 +13,33 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
+/**
+ * This class represents a RESTful web service endpoint for adding a movie to a user's watchlist.
+ * The endpoint is accessed via HTTP POST request to the "/api/users/movies/watchlist/{username}/{title}/{director}" path.
+ * It takes in form parameters for username, title, and director, and returns a JSON response
+ * with status OK if the movie is added successfully, or a NOT_FOUND response if the username does not exist.
+ * <p>
+ * HTTP Method: POST
+ * Path: /api/users/movies/watchlist/{username}/{title}/{director}
+ *
+ * @version 1.0
+ */
 @Path("/users/movies")
 public class AddMovieToWatchlistController {
 
     @Inject
-    IUserService userService;
+    private IUserService userService;
 
+    /**
+     *Adds a movie to the user's watchlist.
+     *
+     *@param username The username of the user.
+     *@param title The title of the movie to add to the watchlist.
+     *@param director The director of the movie to add to the watchlist.
+     *@return A JSON response with status OK if the movie is added successfully.
+     *@throws EntityNotFoundException if the username does not exist in the system.
+     */
     @POST
     @Path("/watchlist/{username}/{title}/{director}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,7 +61,6 @@ public class AddMovieToWatchlistController {
         User updatedUser = userService.getUserById(user.getId());
         updatedUser = userService.addMovieToWatchlist(username,movie);
 
-        // Return a JSON response with the updated user
         return Response.status(Response.Status.OK).build();
     }
 }

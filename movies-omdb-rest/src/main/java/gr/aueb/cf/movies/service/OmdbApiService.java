@@ -5,10 +5,22 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Service class for interacting with the OMDB API to retrieve movie details.
+ */
 public class OmdbApiService {
     private static final String OMDB_URL = "http://www.omdbapi.com/";
     private static final String OMDB_API_KEY = "7b6fac4a";
 
+    /**
+     * Retrieves movie details from the OMDB API based on the given movie title
+     *
+     * @param movieTitle
+     * The title of the movie for which details are to be retrieved
+     *
+     * @return
+     * A string containing the JSON response from the OMDB API
+     */
     public String getMovieDetails(String movieTitle) {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(OMDB_URL)

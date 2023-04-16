@@ -3,6 +3,19 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Movie entity in the movie application.
+ * <p>
+ * The Movie class is an entity class that maps to the "MOVIES" table in the database.
+ * It encapsulates data and behavior associated with a movie, including its title, director, and associated users.
+ * Movies can have a many-to-many relationship with users, meaning a movie can be associated with multiple users,
+ * and a user can be associated with multiple movies.
+ * <p>
+ * This class provides methods to get and set movie information, as well as manage associated users.
+ * It also implements basic object methods such as equals and toString.
+ *
+ * @version 1.0
+ */
 @Entity
 @Table(name = "MOVIES")
 public class Movie {
@@ -18,6 +31,16 @@ public class Movie {
     @Column(name = "DIRECTOR", length = 50, nullable = false)
     private String director;
 
+    /**
+     * List of users associated with the movie.
+     * <p>
+     * This field represents the list of users who are associated with the movie.
+     * It is used in a many-to-many relationship, where each movie can be associated with multiple users,
+     * and each user can be associated with multiple movies.
+     * The association is mapped by the "movies" field in the User class.
+     * The list is fetched eagerly to ensure that the associated users are loaded when the movie is loaded,
+     * and it cascades the operations of persist, merge, and remove to the associated users.
+     */
     @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER , cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<User> users = new ArrayList<>();
 

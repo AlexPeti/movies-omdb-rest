@@ -48,7 +48,6 @@ public class UserDAOImpl implements IUserDAO {
         return results.isEmpty() ? null : results.get(0);
     }
 
-
     @Override
     public User getById(Long id) {
         EntityManager em = getEntityManager();
@@ -57,58 +56,31 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public void addMovie(User user, Movie movie) {
-        if (!user.getMovies().contains(movie)) {
-            EntityManager em = getEntityManager();
-            EntityTransaction transaction = em.getTransaction();
-            try {
-                transaction.begin();
-                user.addMovie(movie);
-                em.merge(user);
-                transaction.commit();
-            } catch (Exception e) {
-                if (transaction.isActive()) {
-                    transaction.rollback();
-                }
-                e.printStackTrace();
-            } finally {
-                em.close();
-            }
-        }
+        EntityManager em = getEntityManager();
+        user.addMovie(movie);
+        em.merge(user);
     }
 
     @Override
     public void removeMovie(User user, Movie movie) {
-        if (user.getMovies().contains(movie)) {
-            EntityManager em = getEntityManager();
-            EntityTransaction transaction = em.getTransaction();
-            try {
-                transaction.begin();
-                user.removeMovie(movie);
-                em.merge(user);
-                transaction.commit();
-            } catch (Exception e) {
-                if (transaction.isActive()) {
-                    transaction.rollback();
-                }
-                e.printStackTrace();
-            } finally {
-                em.close();
-            }
-        }
+        EntityManager em = getEntityManager();
+        user.removeMovie(movie);
+        em.merge(user);
     }
 
     @Override
     public List<Movie> getAllMoviesByUsername(String username) {
         EntityManager em = getEntityManager();
-        try {
-            TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username", Movie.class);
-            query.setParameter("username", username);
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
+        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m JOIN m.users u WHERE u.username = :username", Movie.class);
+        query.setParameter("username", username);
+        return query.getResultList();
     }
 
+    /**
+     * Retrieves an instance of {@link EntityManager} from the {@link JPAHelper} class.
+     *
+     * @return An instance of {@link EntityManager}.
+     */
     private EntityManager getEntityManager() {
         return JPAHelper.getEntityManager();
     }
