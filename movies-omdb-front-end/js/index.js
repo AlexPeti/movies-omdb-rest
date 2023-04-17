@@ -61,6 +61,8 @@
       `);
 
       const $watchlistButton = $('.watchlist-button');
+      ///////////////////////////////////////////////////////////////////////////////////
+      $(".watchlist-button").css("display", "block");
 
       $watchlistButton.on('click', () => {
         if (!loggedInUser) {
@@ -86,7 +88,7 @@
           }
         })
         .done(() => {
-          // location.reload();
+          alert("Movie added to watchlist")
         })
         .fail((xhr, statusText, error) => {
           console.error(`Failed to add movie to watchlist: ${statusText}`);

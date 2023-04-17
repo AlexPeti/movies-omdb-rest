@@ -2,81 +2,146 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
     background-color:white;
 }
 
+/* Search for movies input and button */
+
 .search-bar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.movie-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.movie-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 30%;
+.search-input {
+  width: 300px; 
+  height: 40px;
+  padding: 8px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .btn-search {
-    margin-top: 10px;
+  width: 150px; 
+  height: 40px; 
+  font-size: 18px;
+  background-color: #4f82e0; 
+  color: #fff; 
+  border: none; 
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.movie-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 30%;
 }
 
 .watchlist-button {
-    background-color: rgb(103, 186, 224);
-    color: white;
-    margin-bottom: 5px;
-    height: 30px;
-    width: 90px;
-    border-radius: 5px;
+  background-color: #2c2b2b;
+  color: #fff;
+  /* margin-bottom: 5px; */
+  height: 40px;
+  width: 140px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: none;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
-.login-icon {
-    font-size: 2em;
-  }
+.watchlist-button:hover {
+  background-color: #4f82e0;
+}
 
 
-  .navbar {
-    display: flex;
-    justify-content: flex-end; /* Align to the right */
-    align-items: center;
-    padding: 10px;
-    background-color: #2c2b2b;
-    color: #fff;
-    width: 100%;
-  }
-  
-  .login-form {
-    display: flex;
-  }
-  
-  .login-form label,
-  .login-form input[type="text"],
-  .login-form input[type="password"],
-  .login-form input[type="submit"] {
-    margin: 0 5px;
-  }
-  
-  .login-form input[type="submit"] {
-    background-color: rgb(55, 145, 197);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-  }
+/* Navbar */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #2c2b2b;
+  color: #fff;
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+}
+
+.login-form label,
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="submit"] {
+  margin: 0 5px;
+}
+
+.login-form input[type="submit"] {
+  background-color: rgb(55, 145, 197);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-search {
+  margin-top: 10px;
+}
+
+.profile-link {
+  order: -1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Header */
+
+.header h1 {
+  color: #000;
+  text-align: center;
+}
+
+
+
+
 
