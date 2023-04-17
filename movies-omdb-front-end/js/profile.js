@@ -21,11 +21,11 @@ $('#myMovies').on('click', function() {
       const movieTitle = data.movies[i].title;
       // Append movie title with remove button to a div container
       $('#myMovieContainer').append(`
-        <div>
-          ${movieTitle}
-          <button class="remove-movie" data-movie="${movieTitle}">Remove</button>
+        <div style="padding: 15px; display: flex; flex-direction: column; align-items: center;">
+            <h3 style="margin-bottom: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${movieTitle}</h3>
+            <button class="remove-movie" data-movie="${movieTitle}" style="align-self: center;">Remove</button>
         </div>
-      `);
+`);
     }
     // Add click event handler to remove buttons
     $('.remove-movie').on('click', function() {
@@ -60,8 +60,3 @@ $('#myMovies').on('click', function() {
 $('#refreshButton').on('click', function() {
   location.reload();
 });
-
-
-
-
-

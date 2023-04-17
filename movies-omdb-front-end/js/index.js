@@ -53,15 +53,16 @@
     })
     .done(data => {
       $movieDetails.html(`
-        <h2>${data.Title}</h2>
-        <img src="${data.Poster}" alt="${data.Title} poster">
-        <p>${data.Plot}</p>
-        <p>Directed by: ${data.Director}</p>
-        <p>Starring: ${data.Actors}</p>
+      <div style="background-color: white; border-radius: 5px; border: 2px solid black; padding: 15px;">
+        <h2 style="margin-bottom: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${data.Title}</h2>
+        <img src="${data.Poster}" alt="${data.Title} poster" style="margin-bottom: 5px;">
+        <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${data.Plot}</p>
+        <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Directed by: ${data.Director}</p>
+        <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Starring: ${data.Actors}</p>
+      </div>
       `);
 
       const $watchlistButton = $('.watchlist-button');
-      ///////////////////////////////////////////////////////////////////////////////////
       $(".watchlist-button").css("display", "block");
 
       $watchlistButton.on('click', () => {
