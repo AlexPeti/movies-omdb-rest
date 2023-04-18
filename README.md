@@ -30,7 +30,7 @@ Instructions on how to use:
     Obtain OMDB API key: To use the movie search functionality, you will need to obtain an API key from https://www.omdbapi.com by navigating to their API Key page.
     Then, copy your API Key and insert it inside the OmdbApiService class, in the relevant field.
     
-    Set up MySQL database: Create an empty MySQL database and configure the database name, and the username and password in the persistence.xml file inside the Java    project, which uses Hibernate for database persistence.
+    Set up MySQL database: Create an empty MySQL database and configure the database name, and the username and password in the persistence.xml file inside the Java    project, which uses Hibernate for database persistence. Also, inside the persistence.xml, set the hibernate.hbm2ddl.auto value to "create" before running the Main method for the first time, then change it to update.
     
     Creating the Database: Make sure to run the MySQL80 server by navigating to services.msc and starting the server. Then run the Main class inside the Java project, this will use the EntityManagerFactory along with the persistence unit, to automatically create the required database tables based on the entity classes defined in the project.
     
