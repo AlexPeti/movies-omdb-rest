@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
  */
 public class OmdbApiService {
     private static final String OMDB_URL = "http://www.omdbapi.com/";
-    private static final String OMDB_API_KEY = "7b6fac4a";
+    private static final String OMDB_API_KEY = "YOUR_API_KEY";
 
     /**
      * Retrieves movie details from the OMDB API based on the given movie title
