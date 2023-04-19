@@ -16,6 +16,9 @@ public class Main {
         user.setUsername("user");
         user.setPassword("password");
 
+        // Begin the transaction
+        em.getTransaction().begin();
+
         // Insert the User entity into the database
         em.persist(user);
 
