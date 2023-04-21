@@ -1,7 +1,8 @@
 package gr.aueb.cf.movies.rest;
 
-import gr.aueb.cf.movies.dao.IUserDAO;
 import gr.aueb.cf.movies.model.User;
+import gr.aueb.cf.movies.service.IUserService;
+import gr.aueb.cf.movies.service.exceptions.EntityNotFoundException;
 
 import javax.inject.Inject;
 import javax.json.Json;
@@ -30,7 +31,7 @@ import javax.ws.rs.core.Response;
 public class LoginController {
 
     @Inject
-    IUserDAO userDAO;
+    IUserService userService;
 
     /**
      * Authenticates a user based on the provided username and password.
@@ -43,12 +44,12 @@ public class LoginController {
     @Path("/authenticate")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authenticateUser(MultivaluedMap<String, String> formParams) {
+    public Response authenticateUser(MultivaluedMap<String, String> formParams) throws EntityNotFoundException {
 
         String username = formParams.getFirst("username");
         String password = formParams.getFirst("password");
 
-        User authenticatedUser = userDAO.authenticate(username, password);
+        User authenticatedUser = userService.authenticateUser(username, password);
 
         if (authenticatedUser != null) {
             JsonObject jsonResponse = Json.createObjectBuilder()
