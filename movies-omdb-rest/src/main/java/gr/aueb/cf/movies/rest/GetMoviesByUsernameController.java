@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * This class represents a RESTful web service endpoint for retrieving movies by username.
  * The endpoint is accessed via HTTP GET request to the "/api/user/watchlist" path.
- * The response is in JSON format and contains a list of movies associated with the given username.
+ * The response is in JSON format and contains the list of movies associated with a user.
  *<p>
  * HTTP Method: GET
  * Path: /api/user/watchlist

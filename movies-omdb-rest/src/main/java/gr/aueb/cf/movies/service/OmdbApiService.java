@@ -13,7 +13,7 @@ public class OmdbApiService {
     private static final String OMDB_API_KEY = "YOUR_OMDB_API_KEY";
 
     /**
-     * Retrieves movie details from the OMDB API based on the given movie title
+     * Retrieves movie details from the OMDB API based on the given movie title.
      *
      * @param movieTitle
      * The title of the movie for which details are to be retrieved
